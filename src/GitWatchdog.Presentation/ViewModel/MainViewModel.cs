@@ -11,16 +11,14 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Threading;
-using GitWatchdog.Command;
-using GitWatchdog.Extensions;
-using GitWatchdog.Model;
+using GitWatchdog.Presentation.Command;
+using GitWatchdog.Presentation.Extensions;
+using GitWatchdog.Presentation.Model;
 using Plugin.Connectivity;
 using SQLite;
 
-namespace GitWatchdog.ViewModel
+namespace GitWatchdog.Presentation.ViewModel
 {
     public class MainViewModel: INotifyPropertyChanged
     {
@@ -32,7 +30,7 @@ namespace GitWatchdog.ViewModel
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            _dispatcher.Invoke(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)));
+            _dispatcher.Schedule(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)));
         }
 
         private bool _isRunning = false;
@@ -49,7 +47,7 @@ namespace GitWatchdog.ViewModel
             }
         }
 
-        private Dispatcher _dispatcher = Dispatcher.CurrentDispatcher;
+        private readonly IScheduler _dispatcher = Scheduler.CurrentThread;
 
         public MainViewModel()
         {
@@ -62,7 +60,7 @@ namespace GitWatchdog.ViewModel
                 .Merge(_forceRefreshSubject)
                 .WhereIsConnected()
                 .Where(_ => !IsRunning)
-                .ObserveOn(DispatcherScheduler.Current)
+                .ObserveOn(_dispatcher)
                 .Select(_ => _items.ToArray())
                 .Where(items => items.Any())
                 .Do(_ => IsRunning = true)
@@ -78,7 +76,7 @@ namespace GitWatchdog.ViewModel
                     return Unit.Default;
                 })
                 .CatchError()
-                .ObserveOn(DispatcherScheduler.Current)
+                .ObserveOn(_dispatcher)
                 .Do(_ => IsRunning = false)
                 .Subscribe();
 
@@ -129,20 +127,21 @@ namespace GitWatchdog.ViewModel
             {
                 return _browseCommand ?? (_browseCommand = new Command.Command(_ =>
                 {
-                    var dialog = new FolderBrowserDialog
-                    {
-                        ShowNewFolderButton = false,
-                        Description = "Select local git repository",
-                    };
+                    //TODO: Move this to a service in GitWatchdog.WPF
+                    //var dialog = new FolderBrowserDialog
+                    //{
+                    //    ShowNewFolderButton = false,
+                    //    Description = "Select local git repository",
+                    //};
 
-                    var result = dialog.ShowDialog();
+                    //var result = dialog.ShowDialog();
 
-                    if(result != DialogResult.OK)
-                    {
-                        return;
-                    }
+                    //if(result != DialogResult.OK)
+                    //{
+                    //    return;
+                    //}
 
-                    AddNewRepo.ExecuteCommandIfPossible(dialog.SelectedPath);
+                    //AddNewRepo.ExecuteCommandIfPossible(dialog.SelectedPath);
                 }));
             }
         }
@@ -358,8 +357,9 @@ namespace GitWatchdog.ViewModel
                         var connection = await GetConnection();
 
                         await connection.InsertAsync(item);
-
-                        await _dispatcher.InvokeAsync(async () =>
+                        
+                        // Todo add a InvokeAsync
+                        _dispatcher.Schedule(async () =>
                         {
 
                             IsRunning = true;

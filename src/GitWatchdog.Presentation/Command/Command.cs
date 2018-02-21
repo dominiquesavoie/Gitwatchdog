@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace GitWatchdog.Command
+namespace GitWatchdog.Presentation.Command
 {
     public class Command : ICommand, ICanRaiseCanExecute
     {

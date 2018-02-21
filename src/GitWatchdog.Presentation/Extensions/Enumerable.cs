@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GitWatchdog.Extensions
+namespace GitWatchdog.Presentation.Extensions
 {
     public static class Enumerable
     {

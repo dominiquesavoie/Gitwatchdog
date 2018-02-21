@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reactive.Concurrency;
 
 namespace GitWatchdog
 {
@@ -13,6 +14,8 @@ namespace GitWatchdog
 #endif
         public static string CurrentUserAppData => 
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+        public static IScheduler DispatcherScheduler = Scheduler.CurrentThread;
 
         public static string AppDataFolder => Path.Combine(CurrentUserAppData, ApplicationName);
     }

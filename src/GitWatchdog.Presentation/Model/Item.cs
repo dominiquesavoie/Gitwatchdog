@@ -1,7 +1,7 @@
 ﻿using System;
 using SQLite;
 
-namespace GitWatchdog.Model
+namespace GitWatchdog.Presentation.Model
 {
     public class Item
     {

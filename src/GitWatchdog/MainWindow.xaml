@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GitWatchdog"
-        xmlns:viewModel="clr-namespace:GitWatchdog.ViewModel"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviors="clr-namespace:GitWatchdog.Behaviors"
+        xmlns:viewModel1="clr-namespace:GitWatchdog.Presentation.ViewModel;assembly=GitWatchdog.Presentation"
         mc:Ignorable="d"
         Title="Git Watchdog" 
         Height="400"
@@ -14,7 +14,7 @@
         Width="650" 
         MinWidth="650">
     <Window.DataContext>
-        <viewModel:MainViewModel x:Name="MainViewModel"/>
+        <viewModel1:MainViewModel x:Name="MainViewModel"/>
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>

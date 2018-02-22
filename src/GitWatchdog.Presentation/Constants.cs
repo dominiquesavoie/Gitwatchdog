@@ -2,21 +2,18 @@
 using System.IO;
 using System.Reactive.Concurrency;
 
-namespace GitWatchdog
+namespace GitWatchdog.Presentation
 {
     public static class Constants
     {
 #if DEBUG
-        public static readonly string ApplicationName = "GitWatchdog Dev";
+        public const string ApplicationName = "GitWatchdog Dev";
 #else
 
-        public static readonly string ApplicationName = "GitWatchdog";
+        public const string ApplicationName = "GitWatchdog";
 #endif
-        public static string CurrentUserAppData => 
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
-        public static IScheduler DispatcherScheduler = Scheduler.CurrentThread;
-
-        public static string AppDataFolder => Path.Combine(CurrentUserAppData, ApplicationName);
+        public static readonly string CurrentUserAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        
+        public static readonly string AppDataFolder = Path.Combine(CurrentUserAppData, ApplicationName);
     }
 }

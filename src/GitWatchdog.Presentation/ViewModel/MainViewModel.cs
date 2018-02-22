@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GitWatchdog.Presentation.Command;
 using GitWatchdog.Presentation.Extensions;
+using GitWatchdog.Presentation.Helpers;
 using GitWatchdog.Presentation.Model;
 using Plugin.Connectivity;
 using SQLite;
@@ -30,10 +31,10 @@ namespace GitWatchdog.Presentation.ViewModel
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            _dispatcher.Schedule(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)));
+            DispatcherHelper.DefaultDispatcherScheduler.Schedule(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)));
         }
 
-        private bool _isRunning = false;
+        private bool _isRunning;
 
         public bool IsRunning
         {
@@ -47,8 +48,6 @@ namespace GitWatchdog.Presentation.ViewModel
             }
         }
 
-        private readonly IScheduler _dispatcher = Scheduler.CurrentThread;
-
         public MainViewModel()
         {
             Start();
@@ -60,7 +59,7 @@ namespace GitWatchdog.Presentation.ViewModel
                 .Merge(_forceRefreshSubject)
                 .WhereIsConnected()
                 .Where(_ => !IsRunning)
-                .ObserveOn(_dispatcher)
+                .ObserveOn(DispatcherHelper.DefaultDispatcherScheduler)
                 .Select(_ => _items.ToArray())
                 .Where(items => items.Any())
                 .Do(_ => IsRunning = true)
@@ -76,7 +75,7 @@ namespace GitWatchdog.Presentation.ViewModel
                     return Unit.Default;
                 })
                 .CatchError()
-                .ObserveOn(_dispatcher)
+                .ObserveOn(DispatcherHelper.DefaultDispatcherScheduler)
                 .Do(_ => IsRunning = false)
                 .Subscribe();
 
@@ -339,6 +338,7 @@ namespace GitWatchdog.Presentation.ViewModel
                         return Task.FromResult(Unit.Default);
                     }
 
+                    // ReSharper disable once PossibleNullReferenceException
                     var name = text.Split('\\').LastOrDefault();
 
                     GitHubRepoUrl = string.Empty;
@@ -357,9 +357,9 @@ namespace GitWatchdog.Presentation.ViewModel
                         var connection = await GetConnection();
 
                         await connection.InsertAsync(item);
-                        
+
                         // Todo add a InvokeAsync
-                        _dispatcher.Schedule(async () =>
+                        DispatcherHelper.DefaultDispatcherScheduler.Schedule(async () =>
                         {
 
                             IsRunning = true;

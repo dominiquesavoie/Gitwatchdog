@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Concurrency;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Threading;
-using GitWatchdog.Command;
+﻿using System.Windows.Input;
+using GitWatchdog.Presentation.Command;
 
-namespace GitWatchdog.Extensions
+namespace GitWatchdog.Presentation.Extensions
 {
     public static class CommandExtensions
     {

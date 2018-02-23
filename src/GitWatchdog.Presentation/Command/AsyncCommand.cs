@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace GitWatchdog.Command
+namespace GitWatchdog.Presentation.Command
 {
     public class AsyncCommand : ICommand, ICanRaiseCanExecute
     {

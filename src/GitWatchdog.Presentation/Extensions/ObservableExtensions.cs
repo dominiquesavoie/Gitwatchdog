@@ -6,7 +6,7 @@ using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
 using Plugin.Connectivity;
 
-namespace GitWatchdog.Extensions
+namespace GitWatchdog.Presentation.Extensions
 {
     public static class ObservableExtensions
     {

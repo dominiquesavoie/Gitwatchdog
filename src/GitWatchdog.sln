@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitWatchdog.WPF", "GitWatch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitWatchdog.Presentation", "GitWatchdog.Presentation\GitWatchdog.Presentation.csproj", "{A0630922-9A5E-48BD-AB10-05EAF8D0499E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gitwatchdog.MacOS", "Gitwatchdog.MacOS\Gitwatchdog.MacOS.csproj", "{84C44747-72F7-4A79-8D53-D9E86269344F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{A0630922-9A5E-48BD-AB10-05EAF8D0499E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A0630922-9A5E-48BD-AB10-05EAF8D0499E}.Release|x86.ActiveCfg = Release|Any CPU
 		{A0630922-9A5E-48BD-AB10-05EAF8D0499E}.Release|x86.Build.0 = Release|Any CPU
+		{84C44747-72F7-4A79-8D53-D9E86269344F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C44747-72F7-4A79-8D53-D9E86269344F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C44747-72F7-4A79-8D53-D9E86269344F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{84C44747-72F7-4A79-8D53-D9E86269344F}.Debug|x86.Build.0 = Debug|Any CPU
+		{84C44747-72F7-4A79-8D53-D9E86269344F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C44747-72F7-4A79-8D53-D9E86269344F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84C44747-72F7-4A79-8D53-D9E86269344F}.Release|x86.ActiveCfg = Release|Any CPU
+		{84C44747-72F7-4A79-8D53-D9E86269344F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

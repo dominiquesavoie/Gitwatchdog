@@ -13,17 +13,6 @@ namespace Gitwatchdog.MacOS
         {
         }
 
-        private MainViewModel ViewModel { set; get; }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            // Hopefully, the CurrentThread scheduler is the MacOS dispatcher.
-            DispatcherHelper.DefaultDispatcherScheduler = Scheduler.CurrentThread;
-            ViewModel = new MainViewModel();
-        }
-
         public override NSObject RepresentedObject
         {
             get

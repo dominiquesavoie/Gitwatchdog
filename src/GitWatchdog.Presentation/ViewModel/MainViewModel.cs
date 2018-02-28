@@ -196,8 +196,8 @@ namespace GitWatchdog.Presentation.ViewModel
 
         private async Task<SQLiteAsyncConnection> GetConnection()
         {
-            var fileName = Path.Combine(Constants.AppDataFolder, "data.db");
-            Directory.CreateDirectory(Constants.AppDataFolder);
+            var fileName = Path.Combine(AppDataFolderHelper.AppDataFolder, "data.db");
+            Directory.CreateDirectory(AppDataFolderHelper.AppDataFolder);
             var connection = new SQLiteAsyncConnection(fileName);
 
             await connection.CreateTableAsync<Item>();

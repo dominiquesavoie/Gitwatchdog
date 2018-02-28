@@ -4,14 +4,10 @@ using System.Reactive.Concurrency;
 
 namespace GitWatchdog.Presentation
 {
-    public static class Constants
+    public static class AppDataFolderHelper
     {
-#if DEBUG
-        public const string ApplicationName = "GitWatchdog Dev";
-#else
+        public static string ApplicationName;
 
-        public const string ApplicationName = "GitWatchdog";
-#endif
         public static readonly string CurrentUserAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         
         public static readonly string AppDataFolder = Path.Combine(CurrentUserAppData, ApplicationName);

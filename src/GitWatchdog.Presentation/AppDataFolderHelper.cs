@@ -10,6 +10,6 @@ namespace GitWatchdog.Presentation
 
         public static readonly string CurrentUserAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         
-        public static readonly string AppDataFolder = Path.Combine(CurrentUserAppData, ApplicationName);
+        public static string AppDataFolder => Path.Combine(CurrentUserAppData, ApplicationName);
     }
 }

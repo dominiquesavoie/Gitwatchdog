@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitWatchdog.Presentation", "GitWatchdog.Presentation\GitWatchdog.Presentation.csproj", "{6C5D3EFD-DA8D-433F-B1D5-01277415AA2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitWatchdog.WPF", "GitWatchdog\GitWatchdog.WPF.csproj", "{691C371B-88C8-4255-B423-1FADEFF9A3A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C5D3EFD-DA8D-433F-B1D5-01277415AA2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C5D3EFD-DA8D-433F-B1D5-01277415AA2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C5D3EFD-DA8D-433F-B1D5-01277415AA2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C5D3EFD-DA8D-433F-B1D5-01277415AA2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691C371B-88C8-4255-B423-1FADEFF9A3A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691C371B-88C8-4255-B423-1FADEFF9A3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691C371B-88C8-4255-B423-1FADEFF9A3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691C371B-88C8-4255-B423-1FADEFF9A3A3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A46708D6-8169-4143-B5CE-AE092550D5CF}
+	EndGlobalSection
+EndGlobal

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Reactive.Concurrency;
 
 namespace GitWatchdog.Presentation
 {
     public static class AppDataFolderHelper
     {
-        public static string ApplicationName;
+        private const string ApplicationName = "GitWatchdog";
 
         public static readonly string CurrentUserAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         

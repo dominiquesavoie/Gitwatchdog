@@ -17,10 +17,22 @@ namespace Gitwatchdog.MacOS.TableViewSource
 
         private IDisposable _contentChangesSubscription;
 
+        private NSTableView _tableView;
 
-        public GitwatchdogTableViewSource(ObservableCollection<Item> list)
+        private const string COLUMN_NAME = "COLUMN_NAME";
+        private const string COLUMN_PATH = "COLUMN_PATH";
+        private const string CellId = "GitWatchdogCell";
+
+        public GitwatchdogTableViewSource(ObservableCollection<Item> list, NSTableView tableView)
         {
             _contents = list;
+
+            list.Add(new Item()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Test Name",
+                Path= "Test Path"
+            });
 
             _contentChangesSubscription = Observable
                 .FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(
@@ -31,30 +43,47 @@ namespace Gitwatchdog.MacOS.TableViewSource
                 .Select(args => args.EventArgs)
                 .Do(args =>
                 {
-                    switch(args.Action)
-                    {
-                        case NotifyCollectionChangedAction.Add:
-                            HandleAdd(args.NewItems.OfType<Item>().ToArray());
-                            break;
-                    }
+                    _tableView.ReloadData();
                 })
                 .CatchError()
                 .Subscribe();
+
+            _tableView = tableView;
+            _tableView.Source = this;
         }
 
-        private void HandleAdd(IList<Item> itemsToAdd)
-        {
-            
-        }
+		public override NSView GetViewForItem(NSTableView tableView, NSTableColumn tableColumn, nint row)
+		{
+            var view = (NSTextField)tableView.MakeView(CellId, this);
+            if (view == null)
+            {
+                view = new NSTextField();
+                view.Identifier =  CellId;
+                view.BackgroundColor = NSColor.Clear;
+                view.Bordered = false;
+                view.Selectable = false;
+                view.Editable = false;
+            }
 
-        public override NSCell GetCell(NSTableView tableView, NSTableColumn tableColumn, nint row)
-        {
-            return base.GetCell(tableView, tableColumn, row);
-        }
+            var data = _contents[(int)row];
+
+            // Set up view based on the column and row
+            switch (tableColumn.Identifier)
+            {
+                case COLUMN_NAME: 
+                    view.StringValue = data.Name; 
+                    break;
+                case COLUMN_PATH:
+                    view.StringValue = data.Path;
+                    break;
+            }
+
+            return view;
+		}
 
         public override nint GetRowCount(NSTableView tableView)
         {
-            return base.GetRowCount(tableView);
+            return _contents.Count;
         }
 
         protected override void Dispose(bool disposing)
@@ -62,6 +91,7 @@ namespace Gitwatchdog.MacOS.TableViewSource
             base.Dispose(disposing);
 
             _contentChangesSubscription?.Dispose();
+            _tableView = null;
         }
     }
 }

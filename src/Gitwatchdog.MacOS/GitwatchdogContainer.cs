@@ -5,12 +5,15 @@ using AppKit;
 using GitWatchdog.Presentation.ViewModel;
 using GitWatchdog.Presentation.Helpers;
 using System.Reactive.Concurrency;
+using Gitwatchdog.MacOS.TableViewSource;
 
 namespace Gitwatchdog.MacOS
 {
 	public partial class GitwatchdogContainer : NSViewController
 	{
         private MainViewModel ViewModel { set; get; }
+
+        private GitwatchdogTableViewSource _tableViewSource;
 
 		public GitwatchdogContainer (IntPtr handle) : base (handle)
 		{
@@ -23,9 +26,21 @@ namespace Gitwatchdog.MacOS
             // Hopefully, the CurrentThread scheduler is the MacOS dispatcher.
             DispatcherHelper.DefaultDispatcherScheduler = Scheduler.CurrentThread;
             ViewModel = new MainViewModel();
-
-
         }
 
+		public override void ViewDidAppear()
+		{
+			base.ViewDidAppear();
+
+            _tableViewSource = new GitwatchdogTableViewSource(ViewModel.Items, GitWatchdogList);
+		}
+
+		public override void ViewDidDisappear()
+		{
+			base.ViewDidDisappear();
+
+            _tableViewSource = null;
+            GitWatchdogList.DataSource = null;
+		}
 	}
 }

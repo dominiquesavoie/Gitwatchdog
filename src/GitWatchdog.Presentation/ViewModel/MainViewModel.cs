@@ -16,6 +16,7 @@ using GitWatchdog.Presentation.Command;
 using GitWatchdog.Presentation.Extensions;
 using GitWatchdog.Presentation.Helpers;
 using GitWatchdog.Presentation.Model;
+using GitWatchdog.Presentation.Services;
 using Plugin.Connectivity;
 using SQLite;
 
@@ -23,6 +24,7 @@ namespace GitWatchdog.Presentation.ViewModel
 {
     public class MainViewModel: INotifyPropertyChanged
     {
+        private readonly IPlatformProvider _platformProvider;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly ISubject<string> _pipedOutput = new Subject<string>();
@@ -265,16 +267,8 @@ namespace GitWatchdog.Presentation.ViewModel
 
         private async Task PurgeBranchGoneFromRemote(string gitPath)
         {
-            var processInfo = new ProcessStartInfo("cmd")
-            {
-                WorkingDirectory = gitPath,
-                CreateNoWindow = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                RedirectStandardInput = true,
-                ErrorDialog = false,
-                UseShellExecute = false
-            };
+            var processInfo = _platformProvider.GetTerminal();
+            processInfo.WorkingDirectory = gitPath;
 
             var process = Process.Start(processInfo);
 

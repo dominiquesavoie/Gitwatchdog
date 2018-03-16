@@ -111,6 +111,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="TableViewSource\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -129,6 +130,7 @@
       <DependentUpon>GitwatchdogContainer.cs</DependentUpon>
     </Compile>
     <Compile Include="TableViewSource\GitwatchdogTableViewSource.cs" />
+    <Compile Include="Services\PlatformProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

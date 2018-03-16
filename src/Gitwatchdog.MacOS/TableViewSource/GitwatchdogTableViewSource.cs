@@ -27,13 +27,6 @@ namespace Gitwatchdog.MacOS.TableViewSource
         {
             _contents = list;
 
-            list.Add(new Item()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Test Name",
-                Path= "Test Path"
-            });
-
             _contentChangesSubscription = Observable
                 .FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(
                     h => _contents.CollectionChanged += h,

@@ -337,9 +337,8 @@ namespace GitWatchdog.Presentation.ViewModel
                     {
                         return Task.FromResult(Unit.Default);
                     }
-
-                    // ReSharper disable once PossibleNullReferenceException
-                    var name = text.Split('\\').LastOrDefault();
+                    var directory = new DirectoryInfo(text);
+                    var name = directory.Name;
 
                     GitHubRepoUrl = string.Empty;
 

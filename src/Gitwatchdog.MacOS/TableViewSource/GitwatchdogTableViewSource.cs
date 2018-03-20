@@ -21,6 +21,7 @@ namespace Gitwatchdog.MacOS.TableViewSource
 
         private const string COLUMN_NAME = "COLUMN_NAME";
         private const string COLUMN_PATH = "COLUMN_PATH";
+        private const string COLUMN_DELETE = "COLUMN_DELETE"
         private const string CellId = "GitWatchdogCell";
 
         public GitwatchdogTableViewSource(ObservableCollection<Item> list, NSTableView tableView)
@@ -47,6 +48,13 @@ namespace Gitwatchdog.MacOS.TableViewSource
 
 		public override NSView GetViewForItem(NSTableView tableView, NSTableColumn tableColumn, nint row)
 		{
+            var isDeleteButton = tableColumn.Identifier.Equals(COLUMN_DELETE);
+
+            if(isDeleteButton)
+            {
+                
+            }
+
             var view = (NSTextField)tableView.MakeView(CellId, this);
             if (view == null)
             {

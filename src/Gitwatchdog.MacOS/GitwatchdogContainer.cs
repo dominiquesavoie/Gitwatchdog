@@ -8,6 +8,7 @@ using System.Reactive.Concurrency;
 using Gitwatchdog.MacOS.TableViewSource;
 using System.Reactive.Linq;
 using System.Reactive.Disposables;
+using Gitwatchdog.MacOS.Services;
 
 namespace Gitwatchdog.MacOS
 {
@@ -29,7 +30,10 @@ namespace Gitwatchdog.MacOS
 
             // Hopefully, the CurrentThread scheduler is the MacOS dispatcher.
             DispatcherHelper.DefaultDispatcherScheduler = Scheduler.CurrentThread;
-            ViewModel = new MainViewModel();
+            ViewModel = new MainViewModel()
+            {
+                PlatformProvider = new PlatformProvider()
+            };
         }
 
 		public override void ViewDidAppear()

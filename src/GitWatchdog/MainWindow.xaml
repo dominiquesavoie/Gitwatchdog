@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:GitWatchdog"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behaviors="clr-namespace:GitWatchdog.Behaviors"
-        xmlns:viewModel1="clr-namespace:GitWatchdog.Presentation.ViewModel;assembly=GitWatchdog.Presentation"
+        xmlns:viewModel="clr-namespace:GitWatchdog.Presentation.ViewModel;assembly=GitWatchdog.Presentation"
+        xmlns:services="clr-namespace:GitWatchdog.Services"
         mc:Ignorable="d"
         Title="Git Watchdog" 
         Height="400"
@@ -14,7 +15,11 @@
         Width="650" 
         MinWidth="650">
     <Window.DataContext>
-        <viewModel1:MainViewModel x:Name="MainViewModel"/>
+        <viewModel:MainViewModel x:Name="MainViewModel">
+            <viewModel:MainViewModel.PlatformProvider>
+                <services:PlatformProvider/>
+            </viewModel:MainViewModel.PlatformProvider>
+        </viewModel:MainViewModel>
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>

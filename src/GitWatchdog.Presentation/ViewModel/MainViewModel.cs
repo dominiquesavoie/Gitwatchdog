@@ -24,7 +24,8 @@ namespace GitWatchdog.Presentation.ViewModel
 {
     public class MainViewModel: INotifyPropertyChanged
     {
-        private readonly IPlatformProvider _platformProvider;
+        public IPlatformProvider PlatformProvider { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly ISubject<string> _pipedOutput = new Subject<string>();
@@ -267,7 +268,7 @@ namespace GitWatchdog.Presentation.ViewModel
 
         private async Task PurgeBranchGoneFromRemote(string gitPath)
         {
-            var processInfo = _platformProvider.GetTerminal();
+            var processInfo = PlatformProvider.GetTerminal();
             processInfo.WorkingDirectory = gitPath;
 
             var process = Process.Start(processInfo);

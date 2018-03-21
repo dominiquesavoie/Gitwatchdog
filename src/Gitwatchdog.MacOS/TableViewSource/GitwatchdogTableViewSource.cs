@@ -8,6 +8,7 @@ using GitWatchdog.Presentation.Model;
 using GitWatchdog.Presentation.Extensions;
 using System.Linq;
 using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace Gitwatchdog.MacOS.TableViewSource
 {
@@ -21,8 +22,10 @@ namespace Gitwatchdog.MacOS.TableViewSource
 
         private const string COLUMN_NAME = "COLUMN_NAME";
         private const string COLUMN_PATH = "COLUMN_PATH";
-        private const string COLUMN_DELETE = "COLUMN_DELETE"
+        private const string COLUMN_DELETE = "COLUMN_DELETE";
         private const string CellId = "GitWatchdogCell";
+
+        public ICommand DeleteCommand { get; set; }
 
         public GitwatchdogTableViewSource(ObservableCollection<Item> list, NSTableView tableView)
         {
@@ -46,13 +49,29 @@ namespace Gitwatchdog.MacOS.TableViewSource
             _tableView.Source = this;
         }
 
+        public void OnDelete(object sender, EventArgs args)
+        {
+            var button = (NSButton)sender;
+            DeleteCommand.ExecuteCommandIfPossible(_contents[(int)button.Tag]);
+        }
+
 		public override NSView GetViewForItem(NSTableView tableView, NSTableColumn tableColumn, nint row)
 		{
             var isDeleteButton = tableColumn.Identifier.Equals(COLUMN_DELETE);
 
+            var data = _contents[(int)row];
             if(isDeleteButton)
             {
-                
+                var buttonView = (NSButton)tableView.MakeView(CellId, this);
+                if(buttonView == null)
+                {
+                    buttonView = new NSButton();
+                    buttonView.Title = "Delete";
+                    buttonView.Activated += OnDelete;
+                }
+                buttonView.Tag = row;
+
+                return buttonView;
             }
 
             var view = (NSTextField)tableView.MakeView(CellId, this);
@@ -65,8 +84,6 @@ namespace Gitwatchdog.MacOS.TableViewSource
                 view.Selectable = false;
                 view.Editable = false;
             }
-
-            var data = _contents[(int)row];
 
             // Set up view based on the column and row
             switch (tableColumn.Identifier)

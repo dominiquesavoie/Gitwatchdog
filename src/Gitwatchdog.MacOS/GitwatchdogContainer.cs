@@ -28,12 +28,13 @@ namespace Gitwatchdog.MacOS
         {
             base.ViewDidLoad();
 
-            // Hopefully, the CurrentThread scheduler is the MacOS dispatcher.
+            // Hopefully, the CurrentThread scheduler is the MacOS dispatcher thread.
             DispatcherHelper.DefaultDispatcherScheduler = Scheduler.CurrentThread;
             ViewModel = new MainViewModel()
             {
                 PlatformProvider = new PlatformProvider()
             };
+
         }
 
 		public override void ViewDidAppear()
@@ -41,6 +42,7 @@ namespace Gitwatchdog.MacOS
 			base.ViewDidAppear();
 
             _tableViewSource = new GitwatchdogTableViewSource(ViewModel.Items, GitWatchdogList);
+            _tableViewSource.DeleteCommand = ViewModel.DeleteRepo;
 
             _addButtonSubscription.Disposable = Observable.FromEventPattern<EventHandler, EventArgs>(
                     h => btnAdd.Activated += h,

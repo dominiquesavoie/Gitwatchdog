@@ -285,7 +285,7 @@ namespace GitWatchdog.Presentation.ViewModel
             var content = await process.StandardOutput.ReadToEndAsync();
 
             var branches = content.Replace("\r", "").Split('\n')
-                .Where(p => !p.StartsWith("*"))
+                .Where(p => !p.StartsWith("*", StringComparison.InvariantCulture))
                 .Where(p => p.Contains(": gone]"))
                 .Select(p => p.Trim().Split(' ').FirstOrDefault())
                 .ToArray();

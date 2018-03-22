@@ -18,5 +18,10 @@ namespace Gitwatchdog.MacOS.Services
                 UseShellExecute = false
             };
         }
+
+        public string BrowseFolder()
+        {
+            return null;
+        }
     }
 }

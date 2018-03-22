@@ -129,6 +129,8 @@ namespace GitWatchdog.Presentation.ViewModel
             {
                 return _browseCommand ?? (_browseCommand = new Command.Command(_ =>
                 {
+                    var path = PlatformProvider.BrowseFolder();
+
                     //TODO: Move this to a service in GitWatchdog.WPF
                     //var dialog = new FolderBrowserDialog
                     //{
@@ -143,7 +145,7 @@ namespace GitWatchdog.Presentation.ViewModel
                     //    return;
                     //}
 
-                    //AddNewRepo.ExecuteCommandIfPossible(dialog.SelectedPath);
+                    AddNewRepo.ExecuteCommandIfPossible(path);
                 }));
             }
         }

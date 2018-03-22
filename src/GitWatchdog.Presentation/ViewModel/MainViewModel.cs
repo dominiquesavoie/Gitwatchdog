@@ -131,19 +131,10 @@ namespace GitWatchdog.Presentation.ViewModel
                 {
                     var path = PlatformProvider.BrowseFolder();
 
-                    //TODO: Move this to a service in GitWatchdog.WPF
-                    //var dialog = new FolderBrowserDialog
-                    //{
-                    //    ShowNewFolderButton = false,
-                    //    Description = "Select local git repository",
-                    //};
-
-                    //var result = dialog.ShowDialog();
-
-                    //if(result != DialogResult.OK)
-                    //{
-                    //    return;
-                    //}
+                    if (string.IsNullOrWhiteSpace(path))
+                    {
+                        return;
+                    }
 
                     AddNewRepo.ExecuteCommandIfPossible(path);
                 }));
@@ -272,6 +263,7 @@ namespace GitWatchdog.Presentation.ViewModel
         {
             var processInfo = new ProcessStartInfo("git", "branch -vv")
             {
+                WorkingDirectory = gitPath,
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -302,6 +294,7 @@ namespace GitWatchdog.Presentation.ViewModel
                 _pipedOutput.OnNext($"{DateTime.Now:G} deleting {branch}");
                 var deleteProcess = new ProcessStartInfo("git", $"branch -df {branch}")
                 {
+                    WorkingDirectory = gitPath,
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,

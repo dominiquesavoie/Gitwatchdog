@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Windows.Forms;
 using GitWatchdog.Presentation.Services;
 
 namespace GitWatchdog.Services
@@ -16,6 +17,24 @@ namespace GitWatchdog.Services
                 ErrorDialog = false,
                 UseShellExecute = false
             };
+        }
+
+        public string BrowseFolder()
+        {
+            var dialog = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = false,
+                Description = "Select local git repository",
+            };
+
+            var result = dialog.ShowDialog();
+
+            if (result != DialogResult.OK)
+            {
+                return null;
+            }
+
+            return dialog.SelectedPath;
         }
     }
 }

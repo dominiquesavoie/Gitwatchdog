@@ -268,23 +268,6 @@ namespace GitWatchdog.Presentation.ViewModel
 
         private async Task PurgeBranchGoneFromRemote(string gitPath)
         {
-            //var processInfo = PlatformProvider.GetTerminal();
-            //processInfo.WorkingDirectory = gitPath;
-
-            //var process = Process.Start(processInfo);
-
-            //if (process == null)
-            //{
-            //    return;
-            //}
-
-            //await process.StandardInput.WriteLineAsync("git branch -vv");
-            //await process.StandardInput.WriteLineAsync("exit");
-            //await process.StandardInput.FlushAsync();
-
-            //var content = await process.StandardOutput.ReadToEndAsync();
-            //var error = await process.StandardError.ReadToEndAsync();
-
             var processInfo = new ProcessStartInfo("git", "branch -vv")
             {
                 CreateNoWindow = true,
@@ -325,10 +308,10 @@ namespace GitWatchdog.Presentation.ViewModel
                     UseShellExecute = false
                 };
 
-                process = Process.Start(processInfo);
+                var delProcess = Process.Start(deleteProcess);
 
-                content = await process.StandardOutput.ReadToEndAsync();
-                error = await process.StandardError.ReadToEndAsync();
+                content = await delProcess.StandardOutput.ReadToEndAsync();
+                error = await delProcess.StandardError.ReadToEndAsync();
 
                 _pipedOutput.OnNext(content);
             }

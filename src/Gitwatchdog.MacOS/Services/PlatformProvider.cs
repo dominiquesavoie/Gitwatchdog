@@ -8,7 +8,7 @@ namespace Gitwatchdog.MacOS.Services
     {
         public ProcessStartInfo GetTerminal()
         {
-            return new ProcessStartInfo("bash")
+            return new ProcessStartInfo("/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal")
             {
                 CreateNoWindow = true,
                 RedirectStandardOutput = true,

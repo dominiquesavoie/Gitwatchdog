@@ -268,21 +268,37 @@ namespace GitWatchdog.Presentation.ViewModel
 
         private async Task PurgeBranchGoneFromRemote(string gitPath)
         {
-            var processInfo = PlatformProvider.GetTerminal();
-            processInfo.WorkingDirectory = gitPath;
+            //var processInfo = PlatformProvider.GetTerminal();
+            //processInfo.WorkingDirectory = gitPath;
+
+            //var process = Process.Start(processInfo);
+
+            //if (process == null)
+            //{
+            //    return;
+            //}
+
+            //await process.StandardInput.WriteLineAsync("git branch -vv");
+            //await process.StandardInput.WriteLineAsync("exit");
+            //await process.StandardInput.FlushAsync();
+
+            //var content = await process.StandardOutput.ReadToEndAsync();
+            //var error = await process.StandardError.ReadToEndAsync();
+
+            var processInfo = new ProcessStartInfo("git", "branch -vv")
+            {
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                ErrorDialog = false,
+                UseShellExecute = false
+            };
 
             var process = Process.Start(processInfo);
 
-            if (process == null)
-            {
-                return;
-            }
-
-            await process.StandardInput.WriteLineAsync("git branch -vv");
-            await process.StandardInput.WriteLineAsync("exit");
-            await process.StandardInput.FlushAsync();
-
             var content = await process.StandardOutput.ReadToEndAsync();
+            var error = await process.StandardError.ReadToEndAsync();
 
             var branches = content.Replace("\r", "").Split('\n')
                 .Where(p => !p.StartsWith("*", StringComparison.InvariantCulture))
@@ -296,26 +312,26 @@ namespace GitWatchdog.Presentation.ViewModel
                 return;
             }
 
-            process = Process.Start(processInfo);
-
-            if (process == null)
-            {
-                return;
-            }
-
             foreach (var branch in branches)
             {
                 _pipedOutput.OnNext($"{DateTime.Now:G} deleting {branch}");
-                await process.StandardInput.WriteLineAsync($"git branch -df {branch}");
+                var deleteProcess = new ProcessStartInfo("git", $"branch -df {branch}")
+                {
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true,
+                    ErrorDialog = false,
+                    UseShellExecute = false
+                };
+
+                process = Process.Start(processInfo);
+
+                content = await process.StandardOutput.ReadToEndAsync();
+                error = await process.StandardError.ReadToEndAsync();
+
+                _pipedOutput.OnNext(content);
             }
-
-            await process.StandardInput.WriteLineAsync("exit");
-            await process.StandardInput.FlushAsync();
-
-            content = await process.StandardOutput.ReadToEndAsync();
-
-            _pipedOutput.OnNext($"Git output for branch deletion: {Environment.NewLine}");
-            _pipedOutput.OnNext(content);
         }
 
         private ICommand _addNewRepo;

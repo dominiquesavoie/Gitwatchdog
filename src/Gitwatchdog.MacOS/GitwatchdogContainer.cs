@@ -9,6 +9,7 @@ using Gitwatchdog.MacOS.TableViewSource;
 using System.Reactive.Linq;
 using System.Reactive.Disposables;
 using Gitwatchdog.MacOS.Services;
+using GitWatchdog.Presentation.Extensions;
 
 namespace Gitwatchdog.MacOS
 {
@@ -18,7 +19,7 @@ namespace Gitwatchdog.MacOS
 
         private GitwatchdogTableViewSource _tableViewSource;
 
-        private SerialDisposable _addButtonSubscription = new SerialDisposable();
+        private CompositeDisposable _subscriptions = new CompositeDisposable();
 
 		public GitwatchdogContainer (IntPtr handle) : base (handle)
 		{
@@ -44,18 +45,26 @@ namespace Gitwatchdog.MacOS
             _tableViewSource = new GitwatchdogTableViewSource(ViewModel.Items, GitWatchdogList);
             _tableViewSource.DeleteCommand = ViewModel.DeleteRepo;
 
-            _addButtonSubscription.Disposable = Observable.FromEventPattern<EventHandler, EventArgs>(
+            Observable.FromEventPattern<EventHandler, EventArgs>(
                     h => btnAdd.Activated += h,
                     h => btnAdd.Activated -= h,
                     DispatcherHelper.DefaultDispatcherScheduler)
-                .Subscribe(_ => ViewModel.AddNewRepo.Execute(txtUrl.StringValue));
+                .Subscribe(_ => ViewModel.AddNewRepo.ExecuteCommandIfPossible(txtUrl.StringValue))
+                .DisposeWith(_subscriptions);
+
+            Observable.FromEventPattern<EventHandler, EventArgs>(
+                    h => btnRefresh.Activated += h,
+                    h => btnRefresh.Activated -= h,
+                    DispatcherHelper.DefaultDispatcherScheduler)
+                .Subscribe(_ => ViewModel.RefreshCommand.ExecuteCommandIfPossible())
+                .DisposeWith(_subscriptions);
 		}
 
 		public override void ViewDidDisappear()
 		{
 			base.ViewDidDisappear();
 
-            _addButtonSubscription.Disposable = null;
+            _subscriptions.Clear();
             _tableViewSource = null;
             GitWatchdogList.DataSource = null;
 		}

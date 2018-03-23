@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
@@ -28,6 +29,11 @@ namespace GitWatchdog.Presentation.Extensions
                 .SelectMany(_ => CrossConnectivity.Current.IsRemoteReachable("http://www.google.com"))
                 .Where(isConnected => isConnected)
                 .SelectUnit();
+        }
+
+        public static void DisposeWith(this IDisposable disposable, CompositeDisposable subscription)
+        {
+            subscription.Add(disposable);
         }
 
         public static IObservable<T> CatchError<T>(this IObservable<T> source, [CallerMemberName]string callerName = "Unknown", [CallerLineNumber] int lineNumber = -1)

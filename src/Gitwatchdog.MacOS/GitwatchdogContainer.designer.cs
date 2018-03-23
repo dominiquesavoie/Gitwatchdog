@@ -9,34 +9,42 @@ using System.CodeDom.Compiler;
 
 namespace Gitwatchdog.MacOS
 {
-    [Register ("GitwatchdogContainer")]
-    partial class GitwatchdogContainer
-    {
-        [Outlet]
-        AppKit.NSButton btnAdd { get; set; }
+	[Register ("GitwatchdogContainer")]
+	partial class GitwatchdogContainer
+	{
+		[Outlet]
+		AppKit.NSButton btnAdd { get; set; }
 
-        [Outlet]
-        AppKit.NSTableView GitWatchdogList { get; set; }
+		[Outlet]
+		AppKit.NSButton btnRefresh { get; set; }
 
-        [Outlet]
-        AppKit.NSTextField txtUrl { get; set; }
-        
-        void ReleaseDesignerOutlets ()
-        {
-            if (btnAdd != null) {
-                btnAdd.Dispose ();
-                btnAdd = null;
-            }
+		[Outlet]
+		AppKit.NSTableView GitWatchdogList { get; set; }
 
-            if (GitWatchdogList != null) {
-                GitWatchdogList.Dispose ();
-                GitWatchdogList = null;
-            }
+		[Outlet]
+		AppKit.NSTextField txtUrl { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (btnAdd != null) {
+				btnAdd.Dispose ();
+				btnAdd = null;
+			}
 
-            if (txtUrl != null) {
-                txtUrl.Dispose ();
-                txtUrl = null;
-            }
-        }
-    }
+			if (GitWatchdogList != null) {
+				GitWatchdogList.Dispose ();
+				GitWatchdogList = null;
+			}
+
+			if (txtUrl != null) {
+				txtUrl.Dispose ();
+				txtUrl = null;
+			}
+
+			if (btnRefresh != null) {
+				btnRefresh.Dispose ();
+				btnRefresh = null;
+			}
+		}
+	}
 }

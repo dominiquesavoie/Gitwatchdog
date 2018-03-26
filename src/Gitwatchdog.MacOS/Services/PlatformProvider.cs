@@ -36,7 +36,7 @@ namespace Gitwatchdog.MacOS.Services
                 return null;
             }
 
-            var directoryPath = panel.DirectoryUrl.AbsoluteString;
+            var directoryPath = panel.DirectoryUrl.RelativeString;
 
             return directoryPath;
         }

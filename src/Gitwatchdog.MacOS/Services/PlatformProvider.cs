@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using AppKit;
 using GitWatchdog.Presentation.Services;
 
 namespace Gitwatchdog.MacOS.Services
@@ -21,7 +22,23 @@ namespace Gitwatchdog.MacOS.Services
 
         public string BrowseFolder()
         {
-            return null;
+            var panel = new NSOpenPanel
+            {
+                ReleasedWhenClosed = true,
+                CanChooseDirectories = true,
+                CanChooseFiles = false
+            };
+
+            var result = panel.RunModal();
+
+            if(result != 1)
+            {
+                return null;
+            }
+
+            var directoryPath = panel.DirectoryUrl.AbsoluteString;
+
+            return directoryPath;
         }
     }
 }

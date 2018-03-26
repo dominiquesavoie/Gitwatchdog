@@ -16,6 +16,9 @@ namespace Gitwatchdog.MacOS
 		AppKit.NSButton btnAdd { get; set; }
 
 		[Outlet]
+		AppKit.NSButton btnBrowse { get; set; }
+
+		[Outlet]
 		AppKit.NSButton btnRefresh { get; set; }
 
 		[Outlet]
@@ -31,6 +34,11 @@ namespace Gitwatchdog.MacOS
 				btnAdd = null;
 			}
 
+			if (btnRefresh != null) {
+				btnRefresh.Dispose ();
+				btnRefresh = null;
+			}
+
 			if (GitWatchdogList != null) {
 				GitWatchdogList.Dispose ();
 				GitWatchdogList = null;
@@ -41,9 +49,9 @@ namespace Gitwatchdog.MacOS
 				txtUrl = null;
 			}
 
-			if (btnRefresh != null) {
-				btnRefresh.Dispose ();
-				btnRefresh = null;
+			if (btnBrowse != null) {
+				btnBrowse.Dispose ();
+				btnBrowse = null;
 			}
 		}
 	}

@@ -6,10 +6,10 @@ using GitWatchdog.Presentation.ViewModel;
 using GitWatchdog.Presentation.Helpers;
 using System.Reactive.Concurrency;
 using Gitwatchdog.MacOS.TableViewSource;
-using System.Reactive.Linq;
 using System.Reactive.Disposables;
 using Gitwatchdog.MacOS.Services;
 using GitWatchdog.Presentation.Extensions;
+using Gitwatchdog.MacOS.Extensions;
 
 namespace Gitwatchdog.MacOS
 {
@@ -45,19 +45,15 @@ namespace Gitwatchdog.MacOS
             _tableViewSource = new GitwatchdogTableViewSource(ViewModel.Items, GitWatchdogList);
             _tableViewSource.DeleteCommand = ViewModel.DeleteRepo;
 
-            Observable.FromEventPattern<EventHandler, EventArgs>(
-                    h => btnAdd.Activated += h,
-                    h => btnAdd.Activated -= h,
-                    DispatcherHelper.DefaultDispatcherScheduler)
-                .Subscribe(_ => ViewModel.AddNewRepo.ExecuteCommandIfPossible(txtUrl.StringValue))
-                .DisposeWith(_subscriptions);
 
-            Observable.FromEventPattern<EventHandler, EventArgs>(
-                    h => btnRefresh.Activated += h,
-                    h => btnRefresh.Activated -= h,
-                    DispatcherHelper.DefaultDispatcherScheduler)
-                .Subscribe(_ => ViewModel.RefreshCommand.ExecuteCommandIfPossible())
-                .DisposeWith(_subscriptions);
+            btnAdd.RegisterCommand(ViewModel.AddNewRepo, () => txtUrl.StringValue)
+                  .DisposeWith(_subscriptions);
+
+            btnRefresh.RegisterCommand(ViewModel.RefreshCommand)
+                      .DisposeWith(_subscriptions);
+
+            btnBrowse.RegisterCommand(ViewModel.BrowseCommand)
+                     .DisposeWith(_subscriptions);
 		}
 
 		public override void ViewDidDisappear()

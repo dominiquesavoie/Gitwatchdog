@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -748,22 +747,15 @@
                                 </tableHeaderView>
                             </scrollView>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FRX-wF-HpT">
-                                <rect key="frame" x="20" y="263" width="254" height="22"/>
+                                <rect key="frame" x="20" y="263" width="167" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="bU8-bi-1IT">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dSH-WN-8Be" userLabel="btn refresh">
-                                <rect key="frame" x="349" y="257" width="87" height="32"/>
-                                <buttonCell key="cell" type="push" title="Refresh" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gc1-5q-EO4">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="klU-wf-g0c">
-                                <rect key="frame" x="276" y="257" width="81" height="32"/>
+                                <rect key="frame" x="196" y="257" width="81" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="69" id="ER8-kd-I1r"/>
                                 </constraints>
@@ -772,24 +764,41 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mxA-1h-Zdy">
+                                <rect key="frame" x="269" y="257" width="85" height="32"/>
+                                <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LRC-gP-hkk">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dSH-WN-8Be" userLabel="btn refresh">
+                                <rect key="frame" x="349" y="257" width="87" height="32"/>
+                                <buttonCell key="cell" type="push" title="Refresh" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gc1-5q-EO4">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="jnN-zh-njF" firstAttribute="top" secondItem="FRX-wF-HpT" secondAttribute="bottom" constant="8" id="2tH-s4-xgv"/>
                             <constraint firstAttribute="bottom" secondItem="BRD-Xd-ybL" secondAttribute="bottom" constant="9" id="HAi-Gd-gWn"/>
-                            <constraint firstItem="dSH-WN-8Be" firstAttribute="leading" secondItem="klU-wf-g0c" secondAttribute="trailing" constant="4" id="LO3-xf-2f6"/>
-                            <constraint firstAttribute="trailing" secondItem="dSH-WN-8Be" secondAttribute="trailing" constant="20" id="VD8-Zn-zLt"/>
-                            <constraint firstItem="klU-wf-g0c" firstAttribute="baseline" secondItem="dSH-WN-8Be" secondAttribute="firstBaseline" id="Zbp-Ot-8a3"/>
+                            <constraint firstItem="dSH-WN-8Be" firstAttribute="leading" secondItem="mxA-1h-Zdy" secondAttribute="trailing" constant="7" id="I2z-PU-mdd"/>
+                            <constraint firstItem="klU-wf-g0c" firstAttribute="leading" secondItem="FRX-wF-HpT" secondAttribute="trailing" constant="15" id="K5s-Pu-duz"/>
+                            <constraint firstItem="mxA-1h-Zdy" firstAttribute="baseline" secondItem="klU-wf-g0c" secondAttribute="baseline" id="QVW-QB-LoA"/>
                             <constraint firstAttribute="trailing" secondItem="BRD-Xd-ybL" secondAttribute="trailing" constant="20" id="aym-1T-7Ev"/>
                             <constraint firstItem="FRX-wF-HpT" firstAttribute="top" secondItem="8Lu-w3-Rxt" secondAttribute="top" constant="15" id="bY5-aI-5fI"/>
                             <constraint firstItem="FRX-wF-HpT" firstAttribute="leading" secondItem="8Lu-w3-Rxt" secondAttribute="leading" constant="20" id="d5R-DQ-YPf"/>
+                            <constraint firstItem="mxA-1h-Zdy" firstAttribute="leading" secondItem="klU-wf-g0c" secondAttribute="trailing" constant="4" id="hwi-ct-X2S"/>
                             <constraint firstItem="FRX-wF-HpT" firstAttribute="top" secondItem="klU-wf-g0c" secondAttribute="top" id="j4G-Ef-oS2"/>
+                            <constraint firstAttribute="trailing" secondItem="dSH-WN-8Be" secondAttribute="trailing" constant="20" id="qic-RM-XFu"/>
                             <constraint firstItem="BRD-Xd-ybL" firstAttribute="leading" secondItem="8Lu-w3-Rxt" secondAttribute="leading" constant="20" id="rL2-OO-Pvj"/>
-                            <constraint firstItem="klU-wf-g0c" firstAttribute="leading" secondItem="FRX-wF-HpT" secondAttribute="trailing" constant="8" id="tCU-KH-Xvi"/>
+                            <constraint firstItem="dSH-WN-8Be" firstAttribute="baseline" secondItem="mxA-1h-Zdy" secondAttribute="baseline" id="tCh-gY-Gfe"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="GitWatchdogList" destination="k5b-Cl-R1A" id="EQf-iz-MOs"/>
                         <outlet property="btnAdd" destination="klU-wf-g0c" id="JUQ-LK-oJ1"/>
+                        <outlet property="btnBrowse" destination="mxA-1h-Zdy" id="u4T-bc-Ew6"/>
                         <outlet property="btnRefresh" destination="dSH-WN-8Be" id="Jnf-aB-lhQ"/>
                         <outlet property="txtUrl" destination="FRX-wF-HpT" id="Z4W-1d-4uz"/>
                     </connections>

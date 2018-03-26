@@ -51,6 +51,7 @@ namespace GitWatchdog.Presentation.Extensions
                         var error = n.Exception;
                         Console.WriteLine(error.Message);
                         Console.WriteLine(error.StackTrace);
+                        Debugger.Break();
                     }
 
                     return Notification.CreateOnNext(default(T));

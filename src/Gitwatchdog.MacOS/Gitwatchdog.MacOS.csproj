@@ -133,6 +133,15 @@
     <Compile Include="TableViewSource\GitwatchdogTableViewSource.cs" />
     <Compile Include="Services\PlatformProvider.cs" />
     <Compile Include="Extensions\NSButtonExtensions.cs" />
+    <Compile Include="Logs.cs" />
+    <Compile Include="Logs.designer.cs">
+      <DependentUpon>Logs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="MainWindow.designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ViewModelProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

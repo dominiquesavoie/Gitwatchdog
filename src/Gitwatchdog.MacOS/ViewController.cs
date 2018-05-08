@@ -13,7 +13,7 @@ namespace Gitwatchdog.MacOS
         {
         }
 
-        public override NSObject RepresentedObject
+		public override NSObject RepresentedObject
         {
             get
             {

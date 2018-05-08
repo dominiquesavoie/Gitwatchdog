@@ -10,6 +10,7 @@ using System.Reactive.Disposables;
 using Gitwatchdog.MacOS.Services;
 using GitWatchdog.Presentation.Extensions;
 using Gitwatchdog.MacOS.Extensions;
+using Foundation;
 
 namespace Gitwatchdog.MacOS
 {
@@ -31,10 +32,7 @@ namespace Gitwatchdog.MacOS
 
             // Hopefully, the CurrentThread scheduler is the MacOS dispatcher thread.
             DispatcherHelper.DefaultDispatcherScheduler = Scheduler.CurrentThread;
-            ViewModel = new MainViewModel()
-            {
-                PlatformProvider = new PlatformProvider()
-            };
+            ViewModel = ViewModelProvider.ProvideMainViewModel();
 
         }
 
